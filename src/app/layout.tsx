@@ -1,23 +1,20 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "./components/Header";
+import { Header } from "./components/Header";
+import { Providers } from "./components/providers";
 
-
-// Modern font loading (recommended by Next.js 14)
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
 });
 
-
 const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  variable: "--font-mono",
 });
 
-// Metadata export (static or dynamic)
 export const metadata: Metadata = {
   title: {
     default: "Justin Patrick Thomasson | Portfolio",
@@ -35,14 +32,16 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${inter.variable} ${inter.variable} ${geistMono.variable}`}
-      suppressHydrationWarning // Only needed if using next-themes
+      className={`${inter.variable} ${geistMono.variable} scroll-smooth`}
+      suppressHydrationWarning
     >
-      <body className={`font-sans antialiased bg-white dark:bg-black text-gray-900 dark:text-gray-50`}>
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
+      <body className="min-h-screen bg-background font-sans antialiased">
+        <Providers>
+          <Header />
+          <main className="flex-1 @container">
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );

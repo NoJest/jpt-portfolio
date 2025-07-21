@@ -1,6 +1,18 @@
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}",  // Next.js app directory
-    "./components/**/*.{js,ts,jsx,tsx}",  // Custom components
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
-}
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: "oklch(var(--primary))",
+      },
+      backdropBlur: {
+        xl: "24px",
+      },
+    },
+  },
+};

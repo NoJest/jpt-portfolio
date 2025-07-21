@@ -1,5 +1,9 @@
 module.exports = {
     plugins: {
-        '@tailwindcss/postcss': {}
+        '@tailwindcss/postcss': {
+            features: {
+                'backdrop-filter': true
+            }
+        }
     }
 }
