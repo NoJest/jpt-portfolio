@@ -6,7 +6,8 @@ import { useTheme } from "next-themes";
 
 export function Header() {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme} = useTheme(); 
+
 
   const links = [
     { name: "Home", href: "/" },
@@ -16,17 +17,17 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-xl dark:border-gray-800 dark:bg-gray-950/80">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl text-foreground dark:border-primary/20">
       <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4 @[700px]:px-6">
         <nav className="flex items-center gap-6 text-sm font-medium">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`relative px-1 py-2 transition-colors hover:text-primary ${
+              className={`relative px-1 py-2 transition-colors ${
                 pathname === link.href
-                  ? "text-primary after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-primary after:content-['']"
-                  : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                  ? "text-primary after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-primary"
+                  : "text-foreground/60 hover:text-foreground dark:text-foreground/60 dark:hover:text-foreground"
               }`}
               aria-current={pathname === link.href ? "page" : undefined}
             >
@@ -36,11 +37,18 @@ export function Header() {
         </nav>
         
         <button
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+          className="
+            retro-btn 
+            dark:bg-transparent 
+            dark:text-primary 
+            dark:border-primary 
+            dark:border 
+            dark:shadow-[0_0_10px_var(--primary)] 
+            dark:hover:bg-primary/10"
           aria-label="Toggle theme"
         >
-          {theme === "dark" ? (
+          {resolvedTheme === "dark" ? (
             <SunIcon className="size-5" />
           ) : (
             <MoonIcon className="size-5" />

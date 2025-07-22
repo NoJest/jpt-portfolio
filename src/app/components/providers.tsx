@@ -7,9 +7,10 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider 
       attribute="class" 
-      defaultTheme="system" 
-      enableSystem
-      disableTransitionOnChange
+      defaultTheme="light" 
+      enableSystem={false}
+      disableTransitionOnChange= {false}
+      storageKey="portfolio-theme-v4"
     >
       {children}
     </ThemeProvider>

@@ -1,18 +1,25 @@
-import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import type { Metadata } from "next";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { Header } from "./components/Header";
 import { Providers } from "./components/providers";
 
-const inter = Inter({
+// Primary font - Space Grotesk (modern tech aesthetic)
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans", // Changed from --font-inter
   display: "swap",
+  weight: ["400", "500", "600", "700"], // All recommended weights
+  adjustFontFallback: true, // Better CLS scores
 });
 
-const geistMono = Geist_Mono({
+// Monospace font - JetBrains Mono (developer-optimized)
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
+  weight: ["400", "700"], // Regular and Bold only
+  adjustFontFallback: false, // Monospace fallback is predictable
 });
 
 export const metadata: Metadata = {
@@ -32,7 +39,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${inter.variable} ${geistMono.variable} scroll-smooth`}
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} `}
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background font-sans antialiased">
