@@ -57,8 +57,8 @@ export const ProjectShowcase = ({ projects }: { projects: Project[] }) => {
       <Canvas 
         camera={{ 
           position: [0, 8, 15], // More zoomed out starting position
-          fov: 35, // Narrower field of view
-          rotation: [-0.3, 0, 0] // Downward tilt
+          fov: 55, // Narrower field of view
+          rotation: [0, 0, 0] // Downward tilt
         }}
         gl={{ antialias: true }}
       >

@@ -70,7 +70,10 @@
       0 0 10px rgb(var(--primary) / 0.5),
       inset 0 0 5px rgb(var(--primary) / 0.2);
   }
-
+.dark .project-details {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
   .dark h1,
   .dark h2,
   .dark h3 {
