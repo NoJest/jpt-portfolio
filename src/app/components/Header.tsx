@@ -3,11 +3,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react"; // Add this import
 
 export function Header() {
   const pathname = usePathname();
-  const { resolvedTheme, setTheme} = useTheme(); 
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false); // Add mounted state
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const links = [
     { name: "Home", href: "/" },
@@ -36,24 +41,28 @@ export function Header() {
           ))}
         </nav>
         
-        <button
-          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-          className="
-            retro-btn 
-            dark:bg-transparent 
-            dark:text-primary 
-            dark:border-primary 
-            dark:border 
-            dark:shadow-[0_0_10px_var(--primary)] 
-            dark:hover:bg-primary/10"
-          aria-label="Toggle theme"
-        >
-          {resolvedTheme === "dark" ? (
-            <SunIcon className="size-5" />
-          ) : (
-            <MoonIcon className="size-5" />
-          )}
-        </button>
+        {mounted ? ( // Only render button after mount
+          <button
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="
+              retro-btn 
+              dark:bg-transparent 
+              dark:text-primary 
+              dark:border-primary 
+              dark:border 
+              dark:shadow-[0_0_10px_var(--primary)] 
+              dark:hover:bg-primary/10"
+            aria-label="Toggle theme"
+          >
+            {resolvedTheme === "dark" ? (
+              <SunIcon className="size-5" />
+            ) : (
+              <MoonIcon className="size-5" />
+            )}
+          </button>
+        ) : (
+          <div className="size-9" /> 
+        )}
       </div>
     </header>
   );

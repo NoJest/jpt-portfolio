@@ -1,26 +1,80 @@
-import clientPromise from "@/app/lib/db";
+import clientPromise from '@/app/lib/db';
+import { NextResponse } from 'next/server';
+import { rateLimiter } from '@/app/lib/rate-limiter';
 
 export async function POST(request: Request) {
-  const { name, email, message } = await request.json();
+  // Rate limiting check
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || 
+             request.headers.get('x-real-ip') || 
+             'anonymous';
   
+  const { success } = await rateLimiter.limit(ip);
+
+  if (!success) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again later.' },
+      { status: 429 }
+    );
+  }
+
+  const { name, email, message, website, recaptchaToken } = await request.json();
+
+  // Honeypot check
+  if (website) {
+    console.log('Bot detected via honeypot');
+    return NextResponse.json({ success: true });
+  }
+
+  // Input validation
+  if (!name || !email || !message || !recaptchaToken) {
+    return NextResponse.json(
+      { error: 'All fields are required' },
+      { status: 400 }
+    );
+  }
+
+  // Verify reCAPTCHA v2
+  try {
+    const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`;
+    const response = await fetch(verificationUrl, { method: 'POST' });
+    const data = await response.json();
+
+    if (!data.success) {
+      console.error('reCAPTCHA failed:', data['error-codes']);
+      return NextResponse.json(
+        { error: 'reCAPTCHA verification failed' },
+        { status: 400 }
+      );
+    }
+  } catch (error) {
+    console.error('reCAPTCHA error:', error);
+    return NextResponse.json(
+      { error: 'Error verifying reCAPTCHA' },
+      { status: 500 }
+    );
+  }
+
+  // Save to MongoDB
   try {
     const client = await clientPromise;
-    const db = client.db(); // Use your DB name if not default
+    const db = client.db();
     
     await db.collection('contacts').insertOne({
       name,
       email,
       message,
+      ipAddress: ip,
+      userAgent: request.headers.get('user-agent'),
       createdAt: new Date(),
+      verified: true,
     });
     
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return NextResponse.json({ success: true });
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Database error' }), {
-      status: 500,
-    });
+    console.error('Database error:', error);
+    return NextResponse.json(
+      { error: 'Failed to save message' },
+      { status: 500 }
+    );
   }
 }
