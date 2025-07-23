@@ -1,13 +1,12 @@
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  tags: string[];
-  image: {
-    src: string;
-    width: number;
-    height: number;
-  };
-  altText: string;
-  url?: string; 
+ export interface Project {
+  id: string
+  title: string
+  description: string
+  imageUrl?: string
+  projectUrl?: string
+  githubUrl?: string
+  tags: string[]
+  techStack: string[]
+  featured: boolean
+  date: string
 }
