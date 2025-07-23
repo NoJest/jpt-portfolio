@@ -1,9 +1,10 @@
-import Gallery from '../components/Gallery/Gallery';
+import { ProjectView } from "../components/ProjectView";
+import { projects } from "../../../public/data/projects";
 
 export default function ProjectsPage() {
   return (
-    <div className="gallery-page">
-      <Gallery />
-    </div>
+    <main>
+      <ProjectView items={projects}/>
+    </main>
   );
 }
