@@ -3,12 +3,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react"; // Add this import
+import { useEffect, useState } from "react";
+import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons"; 
 
 export function Header() {
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false); // Add mounted state
+  const [mounted, setMounted] = useState(false); 
 
   useEffect(() => {
     setMounted(true);
@@ -39,6 +40,27 @@ export function Header() {
               {link.name}
             </Link>
           ))}
+          {/* Social Icons */}
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/NoJest"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/60 hover:text-foreground dark:text-foreground/60 dark:hover:text-foreground transition-colors"
+              aria-label="GitHub"
+            >
+              <GitHubLogoIcon className="h-5 w-5" />
+            </a>
+            <a
+              href="https://linkedin.com/in//justin-thomasson-09b7278a/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/60 hover:text-foreground dark:text-foreground/60 dark:hover:text-foreground transition-colors"
+              aria-label="LinkedIn"
+            >
+              <LinkedInLogoIcon className="h-5 w-5" />
+            </a>
+          </div>
         </nav>
         
         {mounted ? ( // Only render button after mount
