@@ -79,3 +79,13 @@
       -2px 0 rgb(var(--secondary));
   }
 }
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Re-enable scrolling for non-gallery pages */
+.gallery-page {
+  overflow: hidden;
+  height: 100vh;
+}
