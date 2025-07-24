@@ -74,9 +74,7 @@
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-  .dark h1,
-  .dark h2,
-  .dark h3 {
+  .dark h1 {
     text-shadow: 
       2px 0 rgb(var(--primary)),
       -2px 0 rgb(var(--secondary));
@@ -87,25 +85,5 @@ html, body {
   height: 100%;
 }
 
-/* Re-enable scrolling for non-gallery pages */
-.gallery-page {
-  overflow: hidden;
-  height: 100vh;
-}
-html, body {
-  overflow: visible !important; /* Temporary override */
-}
-.galleryContainer {
-  overflow: visible !important; /* Temporary override */
-}
 
-#view-toggle {
-  all: unset !important;
-  position: fixed !important;
-  bottom: 20px !important;
-  right: 20px !important;
-  width: 100px !important;
-  height: 50px !important;
-  background: red !important;
-  z-index: 99999 !important;
-}
+

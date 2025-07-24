@@ -25,8 +25,8 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-start mb-4">
-          {/* Removed text-shadow glow from title */}
-          <h2 className="text-2xl font-semibold text-primary dark:text-secondary">
+          
+          <h2 className="text-2xl font-semibold text-primary dark:text-primary">
             {project.title}
           </h2>
           <button 
