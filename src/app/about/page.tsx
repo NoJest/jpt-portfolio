@@ -10,7 +10,7 @@ export default function About() {
 
       <div className="space-y-6 text-foreground/80 text-lg">
         <p>
-          My journey began when I discovered a message broadcast vulnerability in my middle school's library computers. 
+          My journey began when I discovered a message broadcast vulnerability in my middle school&apos;s library computers. 
           That early fascination with systems never faded, it just evolved into building them properly.
         </p>
 
@@ -23,7 +23,7 @@ export default function About() {
           <h3 className="font-semibold text-foreground mb-3">What drives my work:</h3>
           <ul className="space-y-2 list-disc pl-5">
             <li>Performance that feels instantaneous</li>
-            <li>Code that's as readable as it is functional</li>
+            <li>Code that&apos;s as readable as it is functional</li>
             <li>Solving actual problems, not just writing features</li>
           </ul>
         </div>
@@ -32,7 +32,7 @@ export default function About() {
           My background in AV tech and customer service gives me a unique edge, I speak both 
           <span className="text-primary"> machine </span> 
           and <span className="text-primary"> human </span> fluently. 
-          I've repaired audio systems during live events and soothed frustrated customers, 
+          I&apos;ve repaired audio systems during live events and soothed frustrated customers, 
           both require the same calm problem-solving I bring to debugging sessions.
         </p>
 

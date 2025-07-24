@@ -14,7 +14,7 @@ export default function Hero() {
         whileHover={{ scale: 1.02 }}
         className="text-5xl md:text-6xl font-bold mb-6"
       >
-        Hi, I'm <span className="text-primary">Justin Patrick Thomasson</span>.
+        Hi, I&apos;m <span className="text-primary">Justin Patrick Thomasson</span>.
       </motion.h1>
       
       <motion.p

@@ -19,14 +19,16 @@ export const ProjectPanel = ({ project, position, isSelected, onClick }: Project
   const [visibleSide, setVisibleSide] = useState<'front'|'back'>('front')
   const { camera } = useThree()
   
-  const texture = project.imageUrl 
-    ? useLoader(THREE.TextureLoader, project.imageUrl) 
-    : null
-  // Mirror the texture for the back side
-    if (texture) {
-      texture.wrapS = THREE.RepeatWrapping
-     texture.repeat.x = -1 // This flips the texture horizontally
-   }
+  const texture = useLoader(
+  THREE.TextureLoader, 
+  project.imageUrl || '' )
+
+  useEffect(() => {
+  if (texture && project.imageUrl) {
+    texture.wrapS = THREE.RepeatWrapping
+    texture.repeat.x = -1
+  }
+}, [texture, project.imageUrl])
     
   // More reliable visibility check using camera position
   const checkVisibility = () => {

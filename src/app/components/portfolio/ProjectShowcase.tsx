@@ -1,6 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
-import { Canvas, useThree } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
 import { ProjectPanel } from './ProjectPanel'
 import { ProjectDetails } from './ProjectDetails'
@@ -10,7 +10,7 @@ import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 // Custom scroll-controlled orbit component
 const ScrollOrbitControls = () => {
   const controls = useRef<OrbitControlsImpl>(null)
-  const { camera } = useThree()
+  
   
 useEffect(() => {
     const handleScroll = (e: WheelEvent) => {

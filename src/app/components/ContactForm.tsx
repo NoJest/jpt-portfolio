@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Script from 'next/script';
+
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -17,8 +18,23 @@ export default function ContactForm() {
   const retryCount = useRef(0);
   const maxRetries = 3;
 
+  const initializeRecaptcha = useCallback( () => {
+    if (typeof window !== 'undefined' && window.grecaptcha) {
+      window.grecaptcha.ready(() => {
+        console.log('reCAPTCHA ready');
+        setRecaptchaLoaded(true);
+      });
+    } else {
+      console.error('reCAPTCHA object not available');
+      setErrors(prev => ({
+        ...prev,
+        form: 'Security verification unavailable'
+      }));
+    }
+  }, []);
+
   // Manual script loading fallback
-  const loadRecaptchaScript = () => {
+  const loadRecaptchaScript = useCallback(() => {
     if (retryCount.current >= maxRetries) {
       setErrors(prev => ({
         ...prev,
@@ -41,22 +57,8 @@ export default function ContactForm() {
       setTimeout(loadRecaptchaScript, 2000 * retryCount.current);
     };
     document.body.appendChild(script);
-  };
+  }, []);
 
-  const initializeRecaptcha = () => {
-    if (window.grecaptcha) {
-      window.grecaptcha.ready(() => {
-        console.log('reCAPTCHA ready');
-        setRecaptchaLoaded(true);
-      });
-    } else {
-      console.error('reCAPTCHA object not available');
-      setErrors(prev => ({
-        ...prev,
-        form: 'Security verification unavailable'
-      }));
-    }
-  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -67,7 +69,7 @@ export default function ContactForm() {
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [recaptchaLoaded]);
+  }, [recaptchaLoaded, loadRecaptchaScript]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
