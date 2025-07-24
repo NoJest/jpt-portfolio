@@ -2,22 +2,22 @@ export {};
 
 declare global {
   interface Window {
-    grecaptcha: {
-      ready: (cb: () => void) => void;
-      execute: (siteKey: string, options: { action: string }) => Promise<string>;
-      render: (container: string | HTMLElement, parameters: ReCaptchaParameters) => string;
-      reset: (optWidgetId?: string) => void;
-    };
+    grecaptcha: ReCaptchaV2.ReCaptcha;
+    recaptchaCallback?: () => void;
     captchaOnLoad?: () => void;
+    recaptchaVerified?: (token: string) => void;
   }
-}
 
-interface ReCaptchaParameters {
-  sitekey: string;
-  theme?: 'light' | 'dark';
-  size?: 'normal' | 'compact' | 'invisible';
-  tabindex?: number;
-  callback?: (response: string) => void;
-  'expired-callback'?: () => void;
-  'error-callback'?: () => void;
+  interface Project {
+    id: string;
+    title: string;
+    description: string;
+    imageUrl?: string;
+    projectUrl?: string;
+    githubUrl?: string;
+    tags: string[];
+    techStack: string[];
+    featured: boolean;
+    date: string;
+  }
 }

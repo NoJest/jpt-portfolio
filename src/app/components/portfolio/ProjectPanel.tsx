@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react'
 import { useFrame, useLoader, useThree } from '@react-three/fiber'
 import { Text } from '@react-three/drei'
 import * as THREE from 'three'
-import { Project } from '@/types/project'
+
 
 interface ProjectPanelProps {
   project: Project

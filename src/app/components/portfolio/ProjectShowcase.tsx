@@ -4,7 +4,6 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
 import { ProjectPanel } from './ProjectPanel'
 import { ProjectDetails } from './ProjectDetails'
-import { Project } from '@/types/project'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
 // Custom scroll-controlled orbit component

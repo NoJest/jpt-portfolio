@@ -1,7 +1,5 @@
 'use client';
-
-import { useState, useEffect, useRef, useCallback } from 'react';
-import Script from 'next/script';
+import { useState, useEffect} from 'react';
 
 
 export default function ContactForm() {
@@ -15,61 +13,46 @@ export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
-  const retryCount = useRef(0);
-  const maxRetries = 3;
-
-  const initializeRecaptcha = useCallback( () => {
-    if (typeof window !== 'undefined' && window.grecaptcha) {
-      window.grecaptcha.ready(() => {
-        console.log('reCAPTCHA ready');
-        setRecaptchaLoaded(true);
-      });
-    } else {
-      console.error('reCAPTCHA object not available');
-      setErrors(prev => ({
-        ...prev,
-        form: 'Security verification unavailable'
-      }));
-    }
-  }, []);
-
-  // Manual script loading fallback
-  const loadRecaptchaScript = useCallback(() => {
-    if (retryCount.current >= maxRetries) {
-      setErrors(prev => ({
-        ...prev,
-        form: 'Security features unavailable. Please try again later.'
-      }));
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    script.defer = true;
-    script.onload = () => {
-      console.log('reCAPTCHA loaded manually');
-      initializeRecaptcha();
-    };
-    script.onerror = () => {
-      console.error('Manual reCAPTCHA load failed');
-      retryCount.current++;
-      setTimeout(loadRecaptchaScript, 2000 * retryCount.current);
-    };
-    document.body.appendChild(script);
-  }, []);
-
+  
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!recaptchaLoaded) {
-        console.warn('reCAPTCHA load timeout - trying fallback');
-        loadRecaptchaScript();
-      }
-    }, 5000);
+  const scriptId = 'recaptcha-v2-script';
 
-    return () => clearTimeout(timer);
-  }, [recaptchaLoaded, loadRecaptchaScript]);
+  // Initialize callbacks
+  window.recaptchaVerified = ( ) => {
+    console.log('Verified');
+  };
+
+  if (window.grecaptcha) {
+    setRecaptchaLoaded(true);
+    return;
+  }
+
+
+  // Create and load script
+  const script = document.createElement('script');
+  script.id = scriptId;
+  script.src = `https://www.recaptcha.net/recaptcha/api.js?onload=recaptchaCallback`;
+  script.async = true;
+  script.defer = true;
+  
+  // Define the global callback
+  window.recaptchaCallback = () => {
+    setRecaptchaLoaded(true);
+  };
+  
+  script.onerror = () => {
+    setErrors({ form: 'Failed to load security check' });
+  };
+
+  document.head.appendChild(script);
+
+  return () => {
+    delete window.recaptchaCallback;
+    delete window.recaptchaVerified;
+    document.getElementById(scriptId)?.remove();
+  };
+}, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -105,31 +88,26 @@ export default function ContactForm() {
     
     if (!validateInputs()) return;
 
+     // V2 verification
+    if (!window.grecaptcha || !window.grecaptcha.getResponse()) {
+      setErrors({ form: 'Please complete the reCAPTCHA' });
+      return;
+    }
+
     setIsSubmitting(true);
-    setStatus('idle');
-    setErrors({});
 
     try {
-      if (!recaptchaLoaded) {
-        throw new Error('Security verification not ready');
-      }
-
-      const token = await window.grecaptcha.execute(
-        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-        { action: 'submit' }
-      );
-
       const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          message: formData.message.trim(),
-          recaptchaToken: token,
-          website: formData.website
-        }),
-      });
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        message: formData.message.trim(),
+        recaptchaToken: window.grecaptcha.getResponse(), // V2 token
+        website: formData.website
+      }),
+    });
 
       const data = await response.json();
 
@@ -141,34 +119,31 @@ export default function ContactForm() {
       setFormData({ name: '', email: '', message: '', website: '' });
       window.grecaptcha?.reset();
     } catch (error) {
-      console.error('Submission error:', error);
       setStatus('error');
       setErrors({
-        form: error instanceof Error 
-          ? error.message 
-          : 'Failed to submit form. Please try again.',
+        form: error instanceof Error ? error.message : 'Submission failed'
       });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  if (errors.form?.includes('Security')) {
+    return (
+      <div className="text-center p-4 border border-red-300 bg-red-50 rounded-lg">
+        <p className="text-red-500">{errors.form}</p>
+        <button 
+          onClick={() => window.location.reload()} 
+          className="mt-2 px-4 py-2 bg-primary text-white rounded hover:bg-primary/90"
+        >
+          Refresh Page
+        </button>
+      </div>
+    );
+  }
+
   return (
     <>
-      <Script
-        id="recaptcha-script"
-        src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-        strategy="lazyOnload"
-        onLoad={() => {
-          console.log('reCAPTCHA script loaded');
-          initializeRecaptcha();
-        }}
-        onError={() => {
-          console.error('Failed to load reCAPTCHA script');
-          loadRecaptchaScript();
-        }}
-      />
-      
       <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
         {/* Form fields remain the same */}
         <div>
@@ -254,9 +229,11 @@ export default function ContactForm() {
         </div>
 
         <div
+          id="g-recaptcha"
           className="g-recaptcha"
           data-sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
           data-size="normal"
+          data-callback="recaptchaVerified"
         />
 
         <button
@@ -264,7 +241,7 @@ export default function ContactForm() {
           disabled={isSubmitting || !recaptchaLoaded}
           className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? 'Sending...' : 'Send Message'}
+          {isSubmitting ? 'Sending...' : recaptchaLoaded ? 'Send Message' : 'Loading Security...'}
         </button>
 
         {status === 'success' && (
