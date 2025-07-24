@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Project } from '@/types/project'
+import Image from 'next/image'
 
 interface ProjectDetailsProps {
   project: Project
@@ -36,6 +37,20 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
             ✕
           </button>
         </div>
+
+        {project.imageUrl && (
+          <div className="mb-6 rounded-lg overflow-hidden border border-border/50">
+            <Image
+              src={project.imageUrl}
+              alt={project.title}
+              width={800}
+              height={450}
+              className="w-full h-auto object-cover"
+              priority
+            />
+          </div>
+        )}
+
         
         <p className="mb-6 text-foreground dark:text-foreground">
           {project.description}

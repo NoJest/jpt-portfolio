@@ -1,8 +1,8 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { Text, Float } from '@react-three/drei'
+import { useRef, useState, useEffect } from 'react'
+import { useFrame, useLoader, useThree } from '@react-three/fiber'
+import { Text } from '@react-three/drei'
 import * as THREE from 'three'
 import { Project } from '@/types/project'
 
@@ -14,51 +14,132 @@ interface ProjectPanelProps {
 }
 
 export const ProjectPanel = ({ project, position, isSelected, onClick }: ProjectPanelProps) => {
-  const meshRef = useRef<THREE.Mesh>(null)
+  const groupRef = useRef<THREE.Group>(null)
   const [hovered, setHover] = useState(false)
+  const [visibleSide, setVisibleSide] = useState<'front'|'back'>('front')
+  const { camera } = useThree()
   
+  const texture = project.imageUrl 
+    ? useLoader(THREE.TextureLoader, project.imageUrl) 
+    : null
+  // Mirror the texture for the back side
+    if (texture) {
+      texture.wrapS = THREE.RepeatWrapping
+     texture.repeat.x = -1 // This flips the texture horizontally
+   }
+    
+  // More reliable visibility check using camera position
+  const checkVisibility = () => {
+    if (!groupRef.current) return
+    
+    // Get the panel's world position and forward vector
+    const worldPosition = new THREE.Vector3()
+    groupRef.current.getWorldPosition(worldPosition)
+    const forward = new THREE.Vector3(0, 0, 1)
+    forward.applyQuaternion(groupRef.current.quaternion)
+    
+    // Vector from panel to camera
+    const toCamera = new THREE.Vector3()
+    camera.getWorldPosition(toCamera)
+    toCamera.sub(worldPosition).normalize()
+    
+    // Dot product determines if we're facing front or back
+    const dot = forward.dot(toCamera)
+    setVisibleSide(dot > 0 ? 'front' : 'back')
+  }
+
   useFrame((state) => {
-    if (!meshRef.current) return
+    if (!groupRef.current) return
     
-    // Floating animation
-    meshRef.current.rotation.y += isSelected ? 0.02 : 0.005
-    meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * (isSelected ? 2 : 1)) * 0.2
+    const time = state.clock.getElapsedTime()
     
-    // Smooth scaling
+    // Spin animation
+    groupRef.current.rotation.y = time * 1
+    
+    // Bobbing animation
+    groupRef.current.position.y = Math.sin(time * 2) * 0.1
+
+    // Scale animation
     const targetScale = isSelected ? 1.2 : hovered ? 1.1 : 1
-    meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1)
+    groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1)
+
+    // Check visibility every frame
+    checkVisibility()
   })
 
+  // Handle resize/scroll events
+  useEffect(() => {
+    const handleResize = () => checkVisibility()
+    window.addEventListener('resize', handleResize)
+    window.addEventListener('scroll', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('scroll', handleResize)
+    }
+  }, [])
+
   return (
-    <Float 
-      speed={isSelected ? 5 : 2}
-      rotationIntensity={isSelected ? 1 : 0.5}
-      floatIntensity={isSelected ? 2 : 1}
-    >
+    <group position={position} ref={groupRef}>
+      {/* Panel */}
       <mesh
-        ref={meshRef}
-        position={position}
         onClick={onClick}
         onPointerOver={() => setHover(true)}
         onPointerOut={() => setHover(false)}
       >
         <boxGeometry args={[3, 2, 0.1]} />
-        <meshStandardMaterial 
-          color={hovered ? '#6b46c1' : '#4a5568'} 
-          metalness={0.2}
-          roughness={0.4}
-        />
-        
-        <Text
-          position={[0, 0.5, 0.06]}
-          fontSize={0.3}
-          color="white"
-          anchorX="center"
-          anchorY="middle"
-        >
-          {project.title}
-        </Text>
+        {[
+          <meshStandardMaterial 
+            key="front"
+            color={hovered ? '#6b46c1' : '#4a5568'} 
+            metalness={0.2}
+            roughness={0.4}
+          />,
+          texture ? (
+            <meshStandardMaterial
+              key="back"
+              map={texture}
+              side={THREE.BackSide}
+            />
+          ) : (
+            <meshStandardMaterial
+              key="back-fallback"
+              color="#4a5568"
+              side={THREE.BackSide}
+            />
+          )
+        ]}
       </mesh>
-    </Float>
+      
+      {/* Front title - only visible when facing camera */}
+      <Text
+        position={[0, 1, 0.06]}
+        visible={visibleSide === 'front'}
+        fontSize={0.3}
+        color="white"
+        anchorX="center"
+        anchorY="middle"
+        outlineWidth={0.02}
+        outlineColor="#000000"
+        outlineOpacity={0.8}
+      >
+        {project.title}
+      </Text>
+      
+      {/* Back title - only visible when back faces camera */}
+      <Text
+        position={[0, 1, -0.06]}
+        rotation={[0, Math.PI, 0]}
+        visible={visibleSide === 'back'}
+        fontSize={0.3}
+        color="white"
+        anchorX="center"
+        anchorY="middle"
+        outlineWidth={0.02}
+        outlineColor="#000000"
+        outlineOpacity={0.8}
+      >
+        {project.title}
+      </Text>
+    </group>
   )
 }

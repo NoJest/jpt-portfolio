@@ -17,7 +17,6 @@ useEffect(() => {
       e.preventDefault()
       if (controls.current) {
         const delta = e.deltaY * 0.002
-        // Access the internal azimuth angle safely
         controls.current.setAzimuthalAngle(controls.current.getAzimuthalAngle() + delta)
         controls.current.update()
       }
@@ -30,10 +29,10 @@ useEffect(() => {
   return (
     <OrbitControls
       ref={controls}
-      enableZoom={false} // Disable zoom
+      enableZoom={false} 
       enablePan={false}
       autoRotate={false}
-      minPolarAngle={Math.PI / 4} // Limit vertical rotation
+      minPolarAngle={Math.PI / 4} 
       maxPolarAngle={Math.PI / 2}
       target={[0, 1, 0]} // Focus point
     />
@@ -56,15 +55,15 @@ export const ProjectShowcase = ({ projects }: { projects: Project[] }) => {
     <div className="relative h-screen w-full">
       <Canvas 
         camera={{ 
-          position: [0, 8, 15], // More zoomed out starting position
-          fov: 55, // Narrower field of view
+          position: [0, 2, 15], 
+          fov: 35, 
           rotation: [0, 0, 0] // Downward tilt
         }}
         gl={{ antialias: true }}
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
-        <ScrollOrbitControls /> {/* Using our custom controls */}
+        <ScrollOrbitControls /> 
         <Environment preset="city" />
         
         {projects.map((project, index) => {

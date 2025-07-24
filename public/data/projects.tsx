@@ -3,47 +3,60 @@ import { Project } from '@/types/project'
 export const projects: Project[] = [
   {
     id: '1',
-    title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce solution with payment integration, cart functionality, and admin dashboard.',
-    imageUrl: '/images/projects/ecommerce.jpg',
-    projectUrl: 'https://ecommerce-demo.example.com',
-    githubUrl: 'https://github.com/yourusername/ecommerce-platform',
-    tags: ['React', 'Node.js', 'MongoDB'],
-    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Stripe', 'Mongoose'],
+    title: 'Flatiron Support Troupe',
+    description: 'A supportive platform to help coding bootcamp students manage stress and emotions through integrated wellness tools.',
+    imageUrl: '/projects/Fist.png',
+    projectUrl: '', 
+    githubUrl: 'https://github.com/NoJest/fist-project-noJest',
+    tags: ['Wellness', 'Education', 'API Integration'],
+    techStack: ['React', 'React Router', 'CSS','TypeScript','JavaScript', 'Spotify API', 'Weather API'],
     featured: true,
-    date: '2023-11-15'
+    date: '2024-11-14'
   },
   {
     id: '2',
-    title: 'AI Image Generator',
+    title: "Moodeng's Wicked Adventure",
+    description: 'A dynamic RPG game with event-driven gameplay, resource management, and optimized rendering performance.',
+    imageUrl: '/projects/Moodeng.png',
+    projectUrl: '', // Add your live URL here if applicable
+    githubUrl: 'https://github.com/NoJest/MoodengPygame',
+    tags: ['Gaming', 'Python', 'Pygame'],
+    techStack: ['Python', 'Pygame', 'OOP', 'Finite State Machines'],
+    featured: true,
+    date: '2024-12-5'
+  },
+  {
+    id: '3',
+    title: 'Rate Your Landlord (RYL)',
+    description: 'A web app to track and rate landlords, featuring a legal assistant chatbot powered by OpenAI to help tenants understand their rights.',
+    imageUrl: '/projects/RYL.png',
+    projectUrl: '', 
+    githubUrl: 'https://github.com/NoJest/RateYourLandlord',
+    tags: ['Housing', 'Legal Tech', 'Civic Tech'],
+    techStack: ['React', 'Flask', 'SQLAlchemy', 'OpenAI API', 'Restful Routes', 'TypeScript', 'JavaScript'],
+    featured: true,
+    date: '2025-01-23'
+  },
+  {
+    id: '4',
+    title: 'SMATTER',
     description: 'Web application that generates custom images using Stable Diffusion API with prompt engineering.',
-    imageUrl: '/images/projects/ai-generator.jpg',
+    imageUrl: '/projects/Smatter.png',
     projectUrl: 'https://ai-image-generator.example.com',
     githubUrl: 'https://github.com/yourusername/ai-image-generator',
     tags: ['AI', 'Machine Learning', 'Cloud'],
     techStack: ['React', 'Python', 'FastAPI', 'AWS Lambda'],
     featured: true,
-    date: '2023-09-22'
+    date: '2023-05-18'
   },
   {
-    id: '3',
-    title: 'Task Management App',
-    description: 'Kanban-style productivity application with drag-and-drop functionality and team collaboration features.',
-    imageUrl: '/images/projects/task-manager.jpg',
-    githubUrl: 'https://github.com/yourusername/task-management-app',
-    tags: ['Productivity', 'Collaboration'],
-    techStack: ['React', 'Redux', 'Firebase', 'React DnD'],
-    featured: false,
-    date: '2023-07-10'
-  },
-  {
-    id: '4',
-    title: 'Weather Dashboard',
-    description: 'Real-time weather visualization with 5-day forecasts, historical data, and location search.',
-    imageUrl: '/images/projects/weather-app.jpg',
-    projectUrl: 'https://weather-dashboard.example.com',
-    tags: ['API Integration', 'Data Visualization'],
-    techStack: ['TypeScript', 'Chart.js', 'OpenWeather API', 'Geolocation API'],
+    id: '5',
+    title: 'Portfolio Website',
+    description: 'Personal portfolio website showcasing projects, skills, and professional information.',
+    imageUrl: '/projects/Portfolio.png',
+    projectUrl: 'https://your-portfolio.example.com',
+    tags: ['Web Design', 'Personal Branding'],
+    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     featured: true,
     date: '2023-05-18'
   }
