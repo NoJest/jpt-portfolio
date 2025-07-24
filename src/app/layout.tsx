@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import  Header from "./components/Header";
-import Providers from "@/app/components/Providers";
+import Providers from "@/app/components/ThemeProvider";
 
 // Primary font - Space Grotesk (modern tech aesthetic)
 const spaceGrotesk = Space_Grotesk({
