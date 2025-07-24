@@ -24,7 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Justin Patrick Thomasson | Portfolio",
+    default: "Justins | Portfolio",
     template: "%s | Justin Patrick Thomasson",
   },
   description: "Personal portfolio of Justin Patrick Thomasson, showcasing projects and skills.",

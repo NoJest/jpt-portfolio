@@ -29,10 +29,10 @@ export default function About() {
         </div>
 
         <p>
-          My background in AV tech and customer service gives me a unique edge - I speak both 
+          My background in AV tech and customer service gives me a unique edge I speak both 
           <span className="text-primary"> machine </span> 
           and <span className="text-primary"> human </span> fluently. 
-          I've repaired audio systems during live events and soothed frustrated customers - 
+          I've repaired audio systems during live events and soothed frustrated customers, 
           both require the same calm problem-solving I bring to debugging sessions.
         </p>
 
