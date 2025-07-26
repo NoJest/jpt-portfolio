@@ -6,7 +6,6 @@ import { ProjectPanel } from './ProjectPanel'
 import { ProjectDetails } from './ProjectDetails'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
-// Custom scroll-controlled orbit component
 const ScrollOrbitControls = () => {
   const controls = useRef<OrbitControlsImpl>(null)
   
@@ -33,7 +32,7 @@ useEffect(() => {
       autoRotate={false}
       minPolarAngle={Math.PI / 4} 
       maxPolarAngle={Math.PI / 2}
-      target={[0, 1, 0]} // Focus point
+      target={[0, 0, 0]} 
     />
   )
 }
@@ -54,9 +53,9 @@ export const ProjectShowcase = ({ projects }: { projects: Project[] }) => {
     <div className="relative h-screen w-full">
       <Canvas 
         camera={{ 
-          position: [0, 2, 15], 
+          position: [2, 3, 15], 
           fov: 35, 
-          rotation: [0, 0, 0] // Downward tilt
+          rotation: [0, 0, 0] 
         }}
         gl={{ antialias: true }}
       >
