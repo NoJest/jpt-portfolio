@@ -79,19 +79,26 @@ export default function Header() {
           
           {/* Theme Toggle */}
           {mounted ? (
-            <button
-              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full hover:bg-muted text-foreground/60 hover:text-foreground dark:text-foreground/60 dark:hover:text-foreground"
-              aria-label="Toggle theme"
+           <button
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="
+            h-10 w-10 flex items-center justify-center rounded-full
+            bg-primary text-background  
+            dark:bg-transparent dark:text-primary dark:border dark:border-primary 
+            shadow-[0_0_15px_rgba(50,35,110,0.5)] 
+            dark:shadow-[0_0_10px_rgba(0,200,255,0.5)] 
+            hover:scale-105 transition-all
+            "
+            aria-label="Toggle theme"
             >
-              {resolvedTheme === "dark" ? (
-                <SunIcon className="h-5 w-5" />
-              ) : (
-                <MoonIcon className="h-5 w-5" />
-              )}
-            </button>
+            {resolvedTheme === "dark" ? (
+              <SunIcon className="h-5 w-5 text-amber-300 dark:text-amber-300" />
+            ) : (
+              <MoonIcon className="h-5 w-5 text-gray-100" />
+            )}
+           </button>
           ) : (
-            <div className="w-9 h-9"></div>
+            <div className="w-10 h-10" />
           )}
         </div>
 
