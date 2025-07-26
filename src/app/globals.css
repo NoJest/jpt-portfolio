@@ -5,7 +5,7 @@
   :root {
     --background: 240 245 255;     /* Light blue sky */
     --foreground: 10 10 30;        /* Soft navy */
-    --primary: 50 35 110;        /* Nioghtshade purple (#32236e */
+    --primary: 50 35 110;          /* Nightshade purple (#32236e) */
     --secondary: 100 210 255;      /* Cyan (#64d2ff) */
     --muted: 230 230 250;         /* Lavender (#e6e6fa) */
     --border: 200 160 255;        /* Purple glow (#c8a0ff) */
@@ -39,19 +39,82 @@
       linear-gradient(rgb(var(--grid-color)) 1px, transparent 1px),
       linear-gradient(90deg, rgb(var(--grid-color)) 1px, transparent 1px);
     background-size: 50px 50px;
+    min-height: 100vh;
+  }
+
+  /* Mobile browser height fix */
+  @supports (-webkit-touch-callout: none) {
+    html {
+      height: -webkit-fill-available;
+    }
+    body {
+      min-height: -webkit-fill-available;
+    }
   }
 }
 
 @layer utilities {
-  /* Retro Wave Utilities (Light Mode) */
-  .bg-background { background-color: rgb(var(--background)); }
-  .text-foreground { color: rgb(var(--foreground)); }
-  .bg-primary { background-color: rgb(var(--primary)); }
-  .text-primary { color: rgb(var(--primary)); }
-  .bg-secondary { background-color: rgb(var(--secondary)); }
-  .text-secondary { color: rgb(var(--secondary)); }
-  .bg-muted { background-color: rgb(var(--muted)); }
-  .border-border { border-color: rgb(var(--border)); }
+  /* Color Utilities */
+  .bg-background {
+    background-color: rgb(var(--background));
+  }
+  .text-foreground {
+    color: rgb(var(--foreground));
+  }
+  .bg-primary {
+    background-color: rgb(var(--primary));
+  }
+  .text-primary {
+    color: rgb(var(--primary));
+  }
+  .bg-secondary {
+    background-color: rgb(var(--secondary));
+  }
+  .text-secondary {
+    color: rgb(var(--secondary));
+  }
+  .bg-muted {
+    background-color: rgb(var(--muted));
+  }
+  .border-border {
+    border-color: rgb(var(--border));
+  }
+
+  /* Header-specific utilities */
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* 16px */
+  }
+  
+  .social-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* 12px */
+  }
+
+  /* Button utilities */
+  .icon-btn {
+    padding: 0.5rem;
+    border-radius: 9999px;
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .icon-btn:hover {
+    background-color: rgb(var(--muted) / 0.3);
+  }
 
   /* Retro Button */
   .retro-btn {
@@ -62,7 +125,7 @@
     box-shadow: 0 0 15px rgb(var(--primary) / 0.5);
   }
 
-  /* Cyberpunk Utilities (Dark Mode) */
+  /* Dark mode utilities */
   .dark .cyber-card {
     background-color: rgb(var(--muted));
     border: 1px solid rgb(var(--primary));
@@ -70,20 +133,31 @@
       0 0 10px rgb(var(--primary) / 0.5),
       inset 0 0 5px rgb(var(--primary) / 0.2);
   }
-.dark .project-details {
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+
+  .dark .project-details {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
   .dark h1 {
     text-shadow: 
       2px 0 rgb(var(--primary)),
       -2px 0 rgb(var(--secondary));
   }
 }
-html, body {
-  overflow: hidden;
-  height: 100%;
+
+/* Touch targets - only for content areas */
+.content-area a,
+.content-area button {
+  min-height: 48px;
+  min-width: 48px;
 }
 
-
-
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

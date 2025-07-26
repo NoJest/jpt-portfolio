@@ -20,4 +20,11 @@ declare global {
     featured: boolean;
     date: string;
   }
+  interface ProjectPanelProps {
+    project: Project
+    position: [number, number, number]
+   isSelected?: boolean
+    onClick: () => void
+
+}
 }

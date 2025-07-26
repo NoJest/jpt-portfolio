@@ -6,31 +6,36 @@ import { Text } from '@react-three/drei'
 import * as THREE from 'three'
 
 
-interface ProjectPanelProps {
-  project: Project
-  position: [number, number, number]
-  isSelected?: boolean
-  onClick: () => void
-}
-
-export const ProjectPanel = ({ project, position, isSelected, onClick }: ProjectPanelProps) => {
+export const ProjectPanel = ({ 
+  project, 
+  position, 
+  isSelected, 
+  onClick,
+  scaleFactor = 1
+ }: ProjectPanelProps & {scaleFactor?: number }) => {
   const groupRef = useRef<THREE.Group>(null)
   const [hovered, setHover] = useState(false)
   const [visibleSide, setVisibleSide] = useState<'front'|'back'>('front')
+  const [texture, setTexture] = useState<THREE.Texture | null>(null);
   const { camera } = useThree()
   
-  const texture = useLoader(
-  THREE.TextureLoader, 
-  project.imageUrl || '' )
 
   useEffect(() => {
-  if (texture && project.imageUrl) {
-    texture.wrapS = THREE.RepeatWrapping
-    texture.repeat.x = -1
-  }
-}, [texture, project.imageUrl])
+    if (!project.imageUrl) return;
+
+    // Create texture loader
+    const loader = new THREE.TextureLoader();
+    loader.crossOrigin = 'anonymous';
     
-  // More reliable visibility check using camera position
+    loader.load(project.imageUrl, (loadedTexture) => {
+      loadedTexture.wrapS = THREE.RepeatWrapping;
+      loadedTexture.repeat.x = -1;
+      setTexture(loadedTexture);
+    });
+  }, [project.imageUrl]);
+
+    
+  
   const checkVisibility = () => {
     if (!groupRef.current) return
     
@@ -63,7 +68,12 @@ export const ProjectPanel = ({ project, position, isSelected, onClick }: Project
 
     // Scale animation
     const targetScale = isSelected ? 1.2 : hovered ? 1.1 : 1
-    groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1)
+    groupRef.current.scale.lerp(
+      new THREE.Vector3(
+        targetScale * scaleFactor, 
+        targetScale * scaleFactor, 
+        targetScale * scaleFactor),
+         0.1)
 
     // Check visibility every frame
     checkVisibility()
@@ -81,8 +91,10 @@ export const ProjectPanel = ({ project, position, isSelected, onClick }: Project
   }, [])
 
   return (
-    <group position={position} ref={groupRef}>
-      {/* Panel */}
+    <group position={position} 
+    ref={groupRef} 
+    scale={[scaleFactor, scaleFactor, scaleFactor]}
+    >
       <mesh
         onClick={onClick}
         onPointerOver={() => setHover(true)}
@@ -112,7 +124,7 @@ export const ProjectPanel = ({ project, position, isSelected, onClick }: Project
         ]}
       </mesh>
       
-      {/* Front title - only visible when facing camera */}
+      
       <Text
         position={[0, 1, 0.06]}
         visible={visibleSide === 'front'}
@@ -127,7 +139,7 @@ export const ProjectPanel = ({ project, position, isSelected, onClick }: Project
         {project.title}
       </Text>
       
-      {/* Back title - only visible when back faces camera */}
+      
       <Text
         position={[0, 1, -0.06]}
         rotation={[0, Math.PI, 0]}

@@ -37,7 +37,12 @@ useEffect(() => {
   )
 }
 
-export const ProjectShowcase = ({ projects }: { projects: Project[] }) => {
+export const ProjectShowcase = ({ 
+  projects,
+  scaleFactor = 1
+ }: { projects: Project[]
+  scaleFactor?: number
+  }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   const getProjectPosition = (index: number, total: number): [number, number, number] => {
@@ -83,6 +88,7 @@ export const ProjectShowcase = ({ projects }: { projects: Project[] }) => {
               project={project}
               isSelected={isSelected}
               onClick={() => setSelectedProject(isSelected ? null : project)}
+              scaleFactor={scaleFactor}
             />
           )
         })}

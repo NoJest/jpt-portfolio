@@ -3,7 +3,17 @@ import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import  Header from "./components/Header";
 import Providers from "@/app/components/ThemeProvider";
+import {generatePreloadMetadata} from  "./components/PreloadLinks";
 
+
+const projectImageUrls = [
+  '/projects/Fist.png',
+  '/projects/Moodeng.png',
+  '/projects/Portfolio.png',
+  '/projects/RYL.png',
+  '/projects/Smatter.png',
+  
+];
 // Primary font - Space Grotesk (modern tech aesthetic)
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -29,6 +39,7 @@ export const metadata: Metadata = {
   },
   description: "Personal portfolio of Justin Patrick Thomasson, showcasing projects and skills.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  ...generatePreloadMetadata(projectImageUrls),
 };
 
 export default function RootLayout({
