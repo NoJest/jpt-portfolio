@@ -2,6 +2,7 @@
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import DownloadResume from "../components/DownloadResume";
 
 export default function About() {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -42,6 +43,9 @@ export default function About() {
             I&apos;ve repaired audio systems during live events and soothed frustrated customers, 
             both require the same calm problem-solving I bring to debugging sessions.
           </p>
+        </div>
+         <div className="flex justify-center mt-12">
+          <DownloadResume />
         </div>
       {isMobile && (
         <motion.div
