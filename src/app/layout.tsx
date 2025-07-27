@@ -4,6 +4,7 @@ import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import  Header from "./components/Header";
 import Providers from "@/app/components/ThemeProvider";
 import {generatePreloadMetadata} from  "./components/PreloadLinks";
+import TrackPageView from "./components/TrackPageView";
 
 
 const projectImageUrls = [
@@ -17,19 +18,18 @@ const projectImageUrls = [
 // Primary font - Space Grotesk (modern tech aesthetic)
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-sans", // Changed from --font-inter
+  variable: "--font-sans", 
   display: "swap",
-  weight: ["400", "500", "600", "700"], // All recommended weights
-  adjustFontFallback: true, // Better CLS scores
+  weight: ["400", "500", "600", "700"], 
+  adjustFontFallback: true, 
 });
 
-// Monospace font - JetBrains Mono (developer-optimized)
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
-  weight: ["400", "700"], // Regular and Bold only
-  adjustFontFallback: false, // Monospace fallback is predictable
+  weight: ["400", "700"], 
+  adjustFontFallback: false, 
 });
 
 export const metadata: Metadata = {
@@ -58,6 +58,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-1 @container">
             {children}
+            <TrackPageView />
           </main>
         </Providers>
       </body>

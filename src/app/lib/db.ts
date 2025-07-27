@@ -1,5 +1,7 @@
 import { MongoClient, type MongoClientOptions } from 'mongodb';
 
+import 'server-only';
+
 declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
