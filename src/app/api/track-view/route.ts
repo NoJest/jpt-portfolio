@@ -6,7 +6,7 @@ import { type NextRequest } from 'next/server';
 export async function POST(request: NextRequest) {
   try {
     const client = await clientPromise;
-    const db = client.db();
+    const collection = client.db('Portfolio').collection('page_views')
     const forwardedFor = request.headers.get('x-forwarded-for');
     const ip = forwardedFor ? forwardedFor.split(',')[0] : 'unknown';
     const userAgent = request.headers.get('user-agent') || 'unknown';
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     }
     
     //  Check for uniqueness (using IP + path combo)
-    const existingView = await db.collection('page_views').findOne({
+    const existingView = await collection.findOne({
       ip,
       path,
       viewedAt: { $gt: new Date(Date.now() - 24 * 60 * 60 * 1000) } // 24h window
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     }
 
 
-    await db.collection('page_views').insertOne({
+    await collection.insertOne({
       path,
       ip,
       userAgent,

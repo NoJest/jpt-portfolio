@@ -7,13 +7,12 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   try {
     const client = await clientPromise;
-    const db = client.db("page_views");
-    
+    const collection = client.db('Portfolio').collection('page_views')
     const { searchParams } = new URL(request.url);
     const path = searchParams.get('path') || '/';
     
     // Count ALL historical documents for this path
-    const count = await db.collection('page_views').countDocuments({ 
+    const count = await collection.countDocuments({ 
       $or: [
         { path: path },
         { path: `${path}/` } 
