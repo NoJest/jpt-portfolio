@@ -25,6 +25,10 @@ export default function ViewCounter({ path }: { path: string }) {
 
     fetchViews();
   }, [path]);
+  
+  if (views === null || views === 0) {
+    return null;
+  }
 
   if (error) {
     return <span className="text-sm text-muted-foreground">View count unavailable</span>;
