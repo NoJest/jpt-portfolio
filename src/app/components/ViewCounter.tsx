@@ -8,7 +8,7 @@ export default function ViewCounter({ path }: { path: string }) {
   useEffect(() => {
     const fetchViews = async () => {
       try {
-        const res = await fetch(`/api/view-count?path=${encodeURIComponent(path)}`);
+        const res = await fetch(`/api/view-count?path=${encodeURIComponent(path)}&_=${Date.now()}`);
         
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

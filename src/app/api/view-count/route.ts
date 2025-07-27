@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import clientPromise from '@/app/lib/db';
 
+// Disable Next.js internal caching
+export const dynamic = 'force-dynamic'; 
+
 export async function GET(request: Request) {
   try {
     const client = await clientPromise;
@@ -9,26 +12,18 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const path = searchParams.get('path') || '/';
     
-    const count = await db.collection('page_views').countDocuments({ path });
+    // Count ALL historical documents for this path
+    const count = await db.collection('page_views').countDocuments({ 
+      $or: [
+        { path: path },
+        { path: `${path}/` } 
+      ]
+    });
     
     return NextResponse.json({ count });
   } catch (error) {
-    // Proper type narrowing
-    if (error instanceof Error) {
-      console.error('Database error:', error.message);
-      return NextResponse.json(
-        { 
-          error: 'Failed to get view count',
-          message: error.message 
-        },
-        { status: 500 }
-      );
-    }
-    
-    // Fallback for non-Error types
-    console.error('Unknown error:', error);
     return NextResponse.json(
-      { error: 'An unknown error occurred' },
+      { count: 0 }, 
       { status: 500 }
     );
   }
