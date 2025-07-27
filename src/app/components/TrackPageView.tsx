@@ -10,6 +10,9 @@ export default function TrackPageView() {
       fetch('/api/track-view', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          path: pathname || '/'
+        })
       });
     }
   }, [pathname]);

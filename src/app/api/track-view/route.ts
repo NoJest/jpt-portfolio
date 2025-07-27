@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const forwardedFor = request.headers.get('x-forwarded-for');
     const ip = forwardedFor ? forwardedFor.split(',')[0] : 'unknown';
     const userAgent = request.headers.get('user-agent') || 'unknown';
-    const path = request.nextUrl.pathname;
+    const { path = '/' } = await request.json();
     const referrer = request.headers.get('referer');
 
         //  Check for uniqueness (using IP + path combo)
