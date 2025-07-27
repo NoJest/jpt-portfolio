@@ -8,7 +8,9 @@ export default function ViewCounter({ path }: { path: string }) {
   useEffect(() => {
     const fetchViews = async () => {
       try {
-        const res = await fetch(`/api/view-count?path=${encodeURIComponent(normalizedPath)}`);
+    const res = await fetch(`/api/view-count?path=${encodeURIComponent(normalizedPath)}&_=${Date.now()}`, {
+      cache: 'no-store'
+    });
         
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -24,14 +26,14 @@ export default function ViewCounter({ path }: { path: string }) {
     };
 
     fetchViews();
-  }, [path]);
+  }, [path, normalizedPath]);
   
-  if (views === null || views === 0) {
-    return null;
-  }
-
   if (error) {
     return <span className="text-sm text-muted-foreground">View count unavailable</span>;
+  }
+
+  if (views === null || views === 0) {
+    return null;
   }
 
   return (
