@@ -35,18 +35,18 @@ export const projects: Project[] = [
     featured: true,
     date: '2025-01-23'
   },
-  {
-    id: '4',
-    title: 'SMATTER',
-    description: 'A dynamic digital publishing platform focused on empowering Writers.',
-    imageUrl: '/projects/Smatter.png',
-    projectUrl: '',
-    githubUrl: 'https://github.com/yourusername/ai-image-generator',
-    tags: ['Fullstack', 'startup', 'web design'],
-    techStack: ['React', 'Sanity', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS'],
-    featured: true,
-    date: '2023-05-18'
-  },
+  // {
+  //   id: '4',
+  //   title: 'SMATTER',
+  //   description: 'A dynamic digital publishing platform focused on empowering Writers.',
+  //   imageUrl: '/projects/Smatter.png',
+  //   projectUrl: '',
+  //   githubUrl: 'https://github.com/yourusername/ai-image-generator',
+  //   tags: ['Fullstack', 'startup', 'web design'],
+  //   techStack: ['React', 'Sanity', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS'],
+  //   featured: true,
+  //   date: '2023-05-18'
+  // },
   {
     id: '5',
     title: 'Portfolio Website',
