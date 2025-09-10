@@ -1,6 +1,6 @@
 import clientPromise from '@/app/lib/db';
 import { NextResponse } from 'next/server';
-import { rateLimiter } from '@/app/lib/rate-limiter';
+
 
 export const dynamic = 'force-dynamic';
 
