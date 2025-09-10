@@ -15,14 +15,7 @@ export async function POST(request: Request) {
     
     console.log('IP address:', ip);
 
-    const { success } = await rateLimiter.limit(ip);
-    if (!success) {
-      console.log('Rate limit exceeded for IP:', ip);
-      return NextResponse.json(
-        { error: 'Too many requests. Please try again later.' },
-        { status: 429 }
-      );
-    }
+    
 
     const { name, email, message, website, recaptchaToken } = await request.json();
     console.log('Received data:', { name, email, message: message?.length, website: !!website });
