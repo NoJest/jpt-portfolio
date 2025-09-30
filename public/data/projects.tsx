@@ -1,16 +1,16 @@
 export const projects: Project[] = [
-  {
-    id: '1',
-    title: 'Flatiron Support Troupe',
-    description: 'A supportive platform to help coding bootcamp students manage stress and emotions through integrated wellness tools.',
-    imageUrl: '/projects/Fist.png',
-    projectUrl: '', 
-    githubUrl: 'https://github.com/NoJest/fist-project-noJest',
-    tags: ['Wellness', 'Education', 'API Integration'],
-    techStack: ['React', 'React Router', 'CSS','TypeScript','JavaScript', 'Spotify API', 'Weather API'],
-    featured: true,
-    date: '2024-11-14'
-  },
+  // {
+  //   id: '1',
+  //   title: 'Flatiron Support Troupe',
+  //   description: 'A supportive platform to help coding bootcamp students manage stress and emotions through integrated wellness tools.',
+  //   imageUrl: '/projects/Fist.png',
+  //   projectUrl: '', 
+  //   githubUrl: 'https://github.com/NoJest/fist-project-noJest',
+  //   tags: ['Wellness', 'Education', 'API Integration'],
+  //   techStack: ['React', 'React Router', 'CSS','TypeScript','JavaScript', 'Spotify API', 'Weather API'],
+  //   featured: true,
+  //   date: '2024-11-14'
+  // },
   {
     id: '2',
     title: "Moodeng's Wicked Adventure",
@@ -35,18 +35,18 @@ export const projects: Project[] = [
     featured: true,
     date: '2025-01-23'
   },
-  // {
-  //   id: '4',
-  //   title: 'SMATTER',
-  //   description: 'A dynamic digital publishing platform focused on empowering Writers.',
-  //   imageUrl: '/projects/Smatter.png',
-  //   projectUrl: '',
-  //   githubUrl: 'https://github.com/yourusername/ai-image-generator',
-  //   tags: ['Fullstack', 'startup', 'web design'],
-  //   techStack: ['React', 'Sanity', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS'],
-  //   featured: true,
-  //   date: '2023-05-18'
-  // },
+  {
+    id: '4',
+    title: 'SMATTER',
+    description: 'A dynamic digital publishing platform focused on empowering Writers.',
+    imageUrl: '/projects/Smatter.png',
+    projectUrl: 'https://www.smattermag.com',
+    githubUrl: '', 
+    tags: ['Fullstack', 'startup', 'web design'],
+    techStack: ['React', 'Sanity', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS'],
+    featured: true,
+    date: '2023-05-18'
+  },
   {
     id: '5',
     title: 'Portfolio Website',
