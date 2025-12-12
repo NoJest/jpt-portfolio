@@ -36,7 +36,7 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
             ✕
           </button>
         </div>
-
+       <div className="flex-1 overflow-y-auto pr-2">
         {project.imageUrl && (
           <div className="mb-6 rounded-lg overflow-hidden border border-border/50">
             <Image
@@ -72,6 +72,7 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
             </div>
           </div>
         )}
+       </div>
         
         <div className="flex gap-4">
           {project.projectUrl && (
