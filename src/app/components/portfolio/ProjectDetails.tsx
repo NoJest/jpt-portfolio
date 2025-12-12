@@ -19,7 +19,7 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
       onClick={onClose}
     >
       <motion.div 
-        className="bg-muted dark:bg-muted project-details rounded-xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-border"
+        className="bg-muted dark:bg-muted project-details rounded-xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-hidden flex flex-col border border-border"
         initial={{ y: 20 }}
         animate={{ y: 0 }}
         onClick={(e) => e.stopPropagation()}
@@ -36,7 +36,8 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
             ✕
           </button>
         </div>
-       <div className="flex-1 overflow-y-auto pr-2">
+
+       <div className="flex-1 overflow-y-auto pr-2 mb-4">
         {project.imageUrl && (
           <div className="mb-6 rounded-lg overflow-hidden border border-border/50">
             <Image
