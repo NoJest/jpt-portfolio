@@ -38,24 +38,36 @@ export const projects: Project[] = [
   {
     id: '4',
     title: 'SMATTER',
-    description: 'A dynamic digital publishing platform focused on empowering Writers.',
+    description: 'A full-stack dynamic digital publishing platform focused on empowering Writers.',
     imageUrl: '/projects/Smatter.png',
     projectUrl: 'https://www.smattermag.com',
     githubUrl: '', 
-    tags: ['Fullstack', 'startup', 'web design'],
-    techStack: ['React', 'Sanity', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS'],
+    tags: ['Fullstack', 'Media Platform', 'Next.js', 'Sanity CMS'],
+    techStack: ['React', 'Sanity', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Vercel'],
     featured: true,
-    date: '2023-05-18'
+    date: '2025-05-18'
   },
+  // {
+  //   id: '5',
+  //   title: 'Portfolio Website',
+  //   description: 'Personal portfolio website showcasing projects, skills, and professional information.',
+  //   imageUrl: '/projects/Portfolio.png',
+  //   projectUrl: 'https://JustinPThomasson.com',
+  //   tags: ['Web Design', 'Personal Branding'],
+  //   techStack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+  //   featured: true,
+  //   date: '2023-05-18'
+  // }
   {
     id: '5',
-    title: 'Portfolio Website',
-    description: 'Personal portfolio website showcasing projects, skills, and professional information.',
-    imageUrl: '/projects/Portfolio.png',
-    projectUrl: 'https://JustinPThomasson.com',
-    tags: ['Web Design', 'Personal Branding'],
-    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    title: 'AI Content Optimization Engine',
+    description: 'Designed and built a scalable content strategy tool that analyzes and generates SEO-optimized metadata, headlines, and posting schedules, increasing content engagement by 35%. Integrated with social media APIs to automate publishing workflows.',
+    imageUrl: '/projects/ai-optimization.png', 
+    projectUrl: '', // Add live URL if available
+    githubUrl: '', // Add GitHub URL if applicable
+    tags: ['AI/ML', 'Automation', 'Content Strategy', 'API Integration'],
+    techStack: ['Python', 'OpenAI API', 'FastAPI/Flask', 'REST APIs', 'Rate Limiting', 'Automation'],
     featured: true,
-    date: '2023-05-18'
+    date: '2025-08-15' 
   }
 ]
