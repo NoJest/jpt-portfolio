@@ -79,7 +79,7 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
           {project.projectUrl && (
             <a
               href={project.projectUrl}
-              className="bg-primary text-background hover:bg-primary/90 px-4 py-2 rounded-lg transition-colors dark:bg-secondary dark:hover:bg-secondary/90"
+              className="bg-muted text-foreground hover:bg-muted/70 px-4 py-2 rounded-lg transition-colors border border-border dark:hover:bg-muted/60"
               target="_blank"
               rel="noopener noreferrer"
             >
