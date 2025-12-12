@@ -39,7 +39,7 @@ export default function About() {
           </div>
 
           <p>
-            My background in AV tech and customer service gives me a unique edge, I'm as fluent in understanding user needs and managing stakeholder expectations as I am in debugging a complex codebase. It's all about calm, systematic problem-solving.
+            My background in AV tech and customer service gives me a unique edge, I&apos;m as fluent in understanding user needs and managing stakeholder expectations as I am in debugging a complex codebase. It&apos;s all about calm, systematic problem-solving.
           </p>
         </div>
          <div className="flex justify-center mt-12">
