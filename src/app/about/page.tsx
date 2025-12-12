@@ -17,6 +17,8 @@ export default function About() {
         </p>
 
         <div className={`space-y-6 text-foreground/80 ${isMobile ? 'text-base pb-12' : 'text-lg pb-20'}`}>
+          <p>I build performant, user-focused web applications. I specialize in taking projects from concept to deployment, delivering measurable improvements in performance, SEO, and user engagement.
+          </p>
           <p>
             My journey began when I discovered a message broadcast vulnerability in my middle school&apos;s library computers. 
             That early fascination with systems never faded, it just evolved into building them properly.
@@ -37,11 +39,7 @@ export default function About() {
           </div>
 
           <p>
-            My background in AV tech and customer service gives me a unique edge, I speak both
-            <span className="text-primary"> machine </span> 
-            and <span className="text-primary"> human </span> fluently. 
-            I&apos;ve repaired audio systems during live events and soothed frustrated customers, 
-            both require the same calm problem-solving I bring to debugging sessions.
+            My background in AV tech and customer service gives me a unique edge, I'm as fluent in understanding user needs and managing stakeholder expectations as I am in debugging a complex codebase. It's all about calm, systematic problem-solving.
           </p>
         </div>
          <div className="flex justify-center mt-12">
