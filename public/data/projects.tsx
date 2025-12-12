@@ -23,18 +23,18 @@ export const projects: Project[] = [
     featured: true,
     date: '2024-12-5'
   },
-  {
-    id: '3',
-    title: 'Rate Your Landlord (RYL)',
-    description: 'A web app to track and rate landlords, featuring a legal assistant chatbot powered by OpenAI to help tenants understand their rights.',
-    imageUrl: '/projects/RYL.png',
-    projectUrl: '', 
-    githubUrl: 'https://github.com/NoJest/RateYourLandlord',
-    tags: ['Housing', 'Legal Tech', 'Civic Tech'],
-    techStack: ['React', 'Flask', 'SQLAlchemy', 'OpenAI API', 'Restful Routes', 'TypeScript', 'JavaScript'],
-    featured: true,
-    date: '2025-01-23'
-  },
+  // {
+  //   id: '3',
+  //   title: 'Rate Your Landlord (RYL)',
+  //   description: 'A web app to track and rate landlords, featuring a legal assistant chatbot powered by OpenAI to help tenants understand their rights.',
+  //   imageUrl: '/projects/RYL.png',
+  //   projectUrl: '', 
+  //   githubUrl: 'https://github.com/NoJest/RateYourLandlord',
+  //   tags: ['Housing', 'Legal Tech', 'Civic Tech'],
+  //   techStack: ['React', 'Flask', 'SQLAlchemy', 'OpenAI API', 'Restful Routes', 'TypeScript', 'JavaScript'],
+  //   featured: true,
+  //   date: '2025-01-23'
+  // },
   {
     id: '4',
     title: 'SMATTER',
