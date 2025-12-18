@@ -19,7 +19,7 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
       onClick={onClose}
     >
       <motion.div 
-        className="bg-muted dark:bg-muted project-details rounded-xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-hidden flex flex-col border border-border"
+        className="bg-muted dark:bg-muted project-details rounded-xl p-6 max-w-2xl w-full max-h-[90vh] flex flex-col border border-border"
         initial={{ y: 20 }}
         animate={{ y: 0 }}
         onClick={(e) => e.stopPropagation()}
@@ -75,7 +75,7 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
         )}
        </div>
         
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-shrink-0">
           {project.projectUrl && (
             <a
               href={project.projectUrl}
