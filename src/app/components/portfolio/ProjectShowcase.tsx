@@ -6,23 +6,24 @@ import { ProjectPanel } from './ProjectPanel'
 import { ProjectDetails } from './ProjectDetails'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
-const ScrollOrbitControls = () => {
+const ScrollOrbitControls = ({ modalOpen }: { modalOpen: boolean }) => {
   const controls = useRef<OrbitControlsImpl>(null)
   
-  
-useEffect(() => {
+  useEffect(() => {
     const handleScroll = (e: WheelEvent) => {
-      e.preventDefault()
-      if (controls.current) {
-        const delta = e.deltaY * 0.002
-        controls.current.setAzimuthalAngle(controls.current.getAzimuthalAngle() + delta)
-        controls.current.update()
+      if (!modalOpen) {  // Only rotate if modal is closed
+        e.preventDefault()
+        if (controls.current) {
+          const delta = e.deltaY * 0.002
+          controls.current.setAzimuthalAngle(controls.current.getAzimuthalAngle() + delta)
+          controls.current.update()
+        }
       }
     }
 
     window.addEventListener('wheel', handleScroll, { passive: false })
     return () => window.removeEventListener('wheel', handleScroll)
-  }, [])
+  }, [modalOpen])
 
   return (
     <OrbitControls
@@ -66,7 +67,7 @@ export const ProjectShowcase = ({
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
-        <ScrollOrbitControls /> 
+        <ScrollOrbitControls modalOpen={!!selectedProject} />
         <Environment preset="city" />
         
         {projects.map((project, index) => {

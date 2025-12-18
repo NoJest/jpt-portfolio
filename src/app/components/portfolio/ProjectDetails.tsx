@@ -12,14 +12,14 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
 
   return (
     <motion.div 
-  className="absolute inset-0 bg-black/80 flex items-center justify-center p-4 z-20"
+  className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50"
   initial={{ opacity: 0 }}
   animate={{ opacity: 1 }}
   exit={{ opacity: 0 }}
   onClick={onClose}
 >
   <motion.div 
-    className="bg-muted dark:bg-muted project-details rounded-xl p-6 max-w-2xl w-full max-h-[90vh] flex flex-col border border-border"
+    className="bg-muted dark:bg-muted rounded-xl p-6 max-w-2xl w-full max-h-[90vh] flex flex-col border border-border"
     initial={{ y: 20 }}
     animate={{ y: 0 }}
     onClick={(e) => e.stopPropagation()}
