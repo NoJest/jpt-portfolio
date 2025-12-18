@@ -1,16 +1,16 @@
 export const projects: Project[] = [
-  // {
-  //   id: '1',
-  //   title: 'Flatiron Support Troupe',
-  //   description: 'A supportive platform to help coding bootcamp students manage stress and emotions through integrated wellness tools.',
-  //   imageUrl: '/projects/Fist.png',
-  //   projectUrl: '', 
-  //   githubUrl: 'https://github.com/NoJest/fist-project-noJest',
-  //   tags: ['Wellness', 'Education', 'API Integration'],
-  //   techStack: ['React', 'React Router', 'CSS','TypeScript','JavaScript', 'Spotify API', 'Weather API'],
-  //   featured: true,
-  //   date: '2024-11-14'
-  // },
+  {
+    id: '1',
+    title: 'Flatiron Support Troupe',
+    description: 'A supportive platform to help coding bootcamp students manage stress and emotions through integrated wellness tools.',
+    imageUrl: '/projects/Fist.png',
+    projectUrl: '', 
+    githubUrl: 'https://github.com/NoJest/fist-project-noJest',
+    tags: ['Wellness', 'Education', 'API Integration'],
+    techStack: ['React', 'React Router', 'CSS','TypeScript','JavaScript', 'Spotify API', 'Weather API'],
+    featured: true,
+    date: '2024-11-14'
+  },
   {
     id: '2',
     title: "Moodeng's Wicked Adventure",
@@ -23,18 +23,18 @@ export const projects: Project[] = [
     featured: true,
     date: '2024-12-5'
   },
-  // {
-  //   id: '3',
-  //   title: 'Rate Your Landlord (RYL)',
-  //   description: 'A web app to track and rate landlords, featuring a legal assistant chatbot powered by OpenAI to help tenants understand their rights.',
-  //   imageUrl: '/projects/RYL.png',
-  //   projectUrl: '', 
-  //   githubUrl: 'https://github.com/NoJest/RateYourLandlord',
-  //   tags: ['Housing', 'Legal Tech', 'Civic Tech'],
-  //   techStack: ['React', 'Flask', 'SQLAlchemy', 'OpenAI API', 'Restful Routes', 'TypeScript', 'JavaScript'],
-  //   featured: true,
-  //   date: '2025-01-23'
-  // },
+  {
+    id: '3',
+    title: 'Rate Your Landlord (RYL)',
+    description: 'A web app to track and rate landlords, featuring a legal assistant chatbot powered by OpenAI to help tenants understand their rights.',
+    imageUrl: '/projects/RYL.png',
+    projectUrl: '', 
+    githubUrl: 'https://github.com/NoJest/RateYourLandlord',
+    tags: ['Housing', 'Legal Tech', 'Civic Tech'],
+    techStack: ['React', 'Flask', 'SQLAlchemy', 'OpenAI API', 'Restful Routes', 'TypeScript', 'JavaScript'],
+    featured: true,
+    date: '2025-01-23'
+  },
   {
     id: '4',
     title: 'SMATTER',
